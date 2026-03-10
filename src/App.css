@@ -22,11 +22,10 @@ body {
   flex-direction: column; /* Stack counter and button */
   justify-content: center;
   align-items: center;
-  gap: 2rem;
 
   background-color: #242424;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
   box-sizing: border-box; /* Ensures padding doesn't break the height */
 }
 
@@ -83,11 +82,10 @@ p {
 }
 
 .reset-btn {
-  flex-shrink: 0;
-  width: calc(100% - 40px);
-  max-width: 400px;
-  margin-top: auto;
-  margin-bottom: 1rem;
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom) + 16px);
+  left: 20px;
+  right: 20px;
   z-index: 10;
   padding: 1rem;
   -webkit-user-select: none;
