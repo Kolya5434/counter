@@ -11,24 +11,22 @@ body {
 }
 
 .fullscreen-container {
-  /* Change vh to dvh here */
+  /* Use dvh to ensure it fits the dynamic browser chrome */
   height: 100dvh;
   width: 100vw;
 
+  /* Add padding at the bottom for the iPhone home bar */
+  padding-bottom: env(safe-area-inset-bottom);
+
   display: flex;
+  flex-direction: column; /* Stack counter and button */
   justify-content: center;
   align-items: center;
+
   background-color: #242424;
-  color: white;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  outline: none;
   position: relative;
   overflow: hidden;
-
-  /* Prevent 'pull-to-refresh' on mobile Chrome/Safari */
-  touch-action: none;
+  box-sizing: border-box; /* Ensures padding doesn't break the height */
 }
 
 .counter-display {
@@ -85,10 +83,14 @@ p {
 
 .reset-btn {
   position: absolute;
-  bottom: 32px;
-  left: 12px;
-  right: 12px;
-  z-index: 1;
+  /* Instead of bottom: 32px, we use safe area + a small gap */
+  bottom: calc(env(safe-area-inset-bottom) + 16px);
+  left: 20px;
+  right: 20px;
+  z-index: 10;
+
+  /* Optional: Make the button taller for easier "floor" access */
+  padding: 1rem;
 }
 
 .reset-btn:focus,
