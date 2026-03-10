@@ -3,34 +3,30 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  /* Use dvh for the body as well to ensure the flex centering stays true */
   height: 100dvh;
-  overflow: hidden; /* This is the "kill switch" for scrolling */
-  position: fixed;  /* Extra insurance for iOS elastic bounce */
+  overflow: hidden;
+  position: fixed;
   width: 100%;
 }
 
 .fullscreen-container {
-  /* Use dvh to ensure it fits the dynamic browser chrome */
   height: 100dvh;
   width: 100vw;
-
-  /* Add padding at the bottom for the iPhone home bar */
-  padding-bottom: env(safe-area-inset-bottom);
-
   display: flex;
-  flex-direction: column; /* Stack counter and button */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
   background-color: #242424;
   position: relative;
-  overflow-x: hidden;
-  box-sizing: border-box; /* Ensures padding doesn't break the height */
+  overflow: hidden;
+  box-sizing: border-box;
+  /* ❌ Прибрано padding-bottom — він зміщував центр вниз */
 }
 
 .counter-display {
   text-align: center;
+  /* Трохи підняти вгору, щоб компенсувати кнопку знизу */
+  margin-bottom: calc(env(safe-area-inset-bottom) + 80px);
 }
 
 h1 {
@@ -73,27 +69,28 @@ p {
 }
 
 @keyframes hold-fill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 
 .reset-btn {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom) + 16px);
+  /* ✅ Safe area + відступ знизу */
+  bottom: max(env(safe-area-inset-bottom), 16px);
   left: 20px;
   right: 20px;
   z-index: 10;
   padding: 1rem;
+  /* ✅ Мінімальна висота щоб кнопка не "ховалась" */
+  min-height: 52px;
   -webkit-user-select: none;
   user-select: none;
+  box-sizing: border-box;
 }
 
 .reset-btn:focus,
-.reset-btn:focus-visible, .reset-btn:hover {
+.reset-btn:focus-visible,
+.reset-btn:hover {
   outline: none;
   box-shadow: none;
   border-color: transparent;
