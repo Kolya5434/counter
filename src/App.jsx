@@ -7,7 +7,8 @@ function App() {
     const [isHolding, setIsHolding] = useState(false)
     const resetTimeoutRef = useRef(null)
 
-    const handleIncrement = () => {
+    const handleIncrement = (e) => {
+        if (e.target.closest('.reset-btn')) return; // Don't count if clicking reset
         setCount(prev => prev + 1)
         setAnimate(true)
         setTimeout(() => setAnimate(false), 100)

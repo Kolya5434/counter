@@ -1,6 +1,20 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  /* Use dvh for the body as well to ensure the flex centering stays true */
+  height: 100dvh;
+  overflow: hidden; /* This is the "kill switch" for scrolling */
+  position: fixed;  /* Extra insurance for iOS elastic bounce */
+  width: 100%;
+}
+
 .fullscreen-container {
-  height: 100vh;
+  /* Change vh to dvh here */
+  height: 100dvh;
   width: 100vw;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,6 +26,9 @@
   outline: none;
   position: relative;
   overflow: hidden;
+
+  /* Prevent 'pull-to-refresh' on mobile Chrome/Safari */
+  touch-action: none;
 }
 
 .counter-display {
