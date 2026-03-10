@@ -86,9 +86,12 @@ p {
   flex-shrink: 0;
   width: calc(100% - 40px);
   max-width: 400px;
+  margin-top: auto;
   margin-bottom: 1rem;
   z-index: 10;
   padding: 1rem;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .reset-btn:focus,
