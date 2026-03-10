@@ -1,32 +1,37 @@
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
   min-width: 320px;
-  height: 100dvh;
+  background-color: #242424;
+  /* Прибираємо position: fixed — воно ламає dvh на iOS */
   overflow: hidden;
-  position: fixed;
-  width: 100%;
 }
 
 .fullscreen-container {
-  height: 100dvh;
   width: 100vw;
+  height: 100svh; /* svh = small viewport height — враховує UI браузера */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #242424;
+  position: relative;
+  box-sizing: border-box;
+  /* Safe area padding з усіх боків */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Каунтер займає весь вільний простір і центрує себе всередині */
+.counter-display {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #242424;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-  /* ❌ Прибрано padding-bottom — він зміщував центр вниз */
-}
-
-.counter-display {
   text-align: center;
-  /* Трохи підняти вгору, щоб компенсувати кнопку знизу */
-  margin-bottom: calc(env(safe-area-inset-bottom) + 80px);
+  width: 100%;
 }
 
 h1 {
@@ -38,11 +43,12 @@ p {
   color: #888;
   letter-spacing: 2px;
   text-transform: uppercase;
+  margin: 0.5rem 0 0;
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
 
@@ -73,19 +79,23 @@ p {
   to   { transform: scaleX(1); }
 }
 
+/* Кнопка — частина flex потоку, не absolute */
 .reset-btn {
-  position: absolute;
-  /* ✅ Safe area + відступ знизу */
-  bottom: max(env(safe-area-inset-bottom), 16px);
-  left: 20px;
-  right: 20px;
+  width: 100%;
+  flex-shrink: 0;
   z-index: 10;
   padding: 1rem;
-  /* ✅ Мінімальна висота щоб кнопка не "ховалась" */
   min-height: 52px;
+  box-sizing: border-box;
   -webkit-user-select: none;
   user-select: none;
-  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
 }
 
 .reset-btn:focus,
