@@ -19,8 +19,111 @@ body {
   padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
   padding-left: 20px;
   padding-right: 20px;
+  transition: background-color 0.3s ease;
 }
 
+.fullscreen-container.flash-green {
+  background-color: #1a4d2e;
+}
+
+/* Hold fullscreen overlay */
+.hold-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 210, 0, 0.15), rgba(255, 122, 24, 0.1));
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+
+.hold-overlay.active {
+  opacity: 1;
+  animation: hold-fill-screen var(--hold-duration, 500ms) ease-out forwards;
+}
+
+@keyframes hold-fill-screen {
+  from {
+    transform: scaleY(0);
+    opacity: 0.3;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-shrink: 0;
+  padding: 8px 0;
+  z-index: 10;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.icon-btn:active {
+  color: #fff;
+}
+
+.done-btn {
+  color: #4ade80;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.done-btn:disabled {
+  color: #555;
+  cursor: not-allowed;
+}
+
+.best-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #888;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.best-label {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.65rem;
+}
+
+.best-value {
+  color: #ffd000;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.best-month {
+  font-size: 0.65rem;
+  color: #666;
+}
+
+/* Counter */
 .counter-display {
   flex: 1;
   display: flex;
@@ -51,4 +154,75 @@ p {
 
 .counter-display.animate {
   animation: pulse 0.1s ease-in-out;
+}
+
+/* Dialog */
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.dialog {
+  background: #2a2a2a;
+  border-radius: 12px;
+  padding: 24px;
+  min-width: 280px;
+  max-width: 90vw;
+}
+
+.dialog h2 {
+  margin: 0 0 16px;
+  font-size: 1.2rem;
+}
+
+.dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.dialog input[type="number"] {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.dialog input[type="number"]:focus {
+  border-color: #ffd000;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.dialog-actions button {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  background: #444;
+  color: #ccc;
+}
+
+.dialog-actions button.primary {
+  background: #ffd000;
+  color: #000;
+  font-weight: 600;
 }
